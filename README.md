@@ -51,8 +51,8 @@ output_clips/
 
 ```bash
 # 1. 이 저장소를 복제(clone)합니다.
-git clone https://github.com/your-username/your-repository-name.git
-cd your-repository-name
+git clone https://github.com/BigJoon/face_cluster.git
+cd face_cluster
 
 # 2. 가상 환경을 생성하고 활성화합니다. (권장)
 python -m venv venv
@@ -70,7 +70,7 @@ pip install -r requirements.txt
 프로젝트 루트 디렉토리에 `input_video` 폴더를 만들고, 분석하고 싶은 동영상 파일 (mp4, mov, avi 등)을 넣어주세요.
 
 ```
-/your-repository-name
+/face_cluster
 ├── input_video/
 │   └── my_awesome_video.mp4  <-- 여기에 동영상 추가
 ├── output_clips/
