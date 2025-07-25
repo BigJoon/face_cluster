@@ -32,7 +32,7 @@ output_clips/
 
 **타임라인 시각화 이미지 예시:**
 
-![타임라인 시각화 예시](https://i.imgur.com/5gY1gH2.png)
+![타임라인 시각화 예시](timeline.png)
 
 
 ## 설치 및 실행 방법
