@@ -2,3 +2,4 @@ face-recognition
 scikit-learn
 numpy
 opencv-python
+matplotlib

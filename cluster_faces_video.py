@@ -8,6 +8,40 @@ import cv2
 import subprocess
 import sys
 import config as cfg
+import matplotlib.pyplot as plt
+
+def visualize_timelines(timelines, output_path):
+    """타임라인 데이터를 matplotlib을 사용해 간트 차트 형태로 시각화합니다."""
+    print("📊 타임라인 시각화 이미지를 생성합니다...")
+
+    if not timelines:
+        print("    - 시각화할 타임라인 데이터가 없습니다.")
+        return
+
+    fig, ax = plt.subplots(figsize=(15, len(timelines) * 0.6 + 2))
+
+    # Y축 레이블 설정 (person_0, person_1, ...)
+    y_labels = sorted(timelines.keys())
+    y_ticks = range(len(y_labels))
+
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels([f'Person {l}' for l in y_labels])
+    ax.invert_yaxis()  # Person 0이 위로 오도록 Y축 뒤집기
+
+    # 각 인물(label)별로 등장 구간(막대) 그리기
+    for i, label in enumerate(y_labels):
+        for (start, end) in timelines[label]:
+            ax.broken_barh([(start, end - start)], (i - 0.4, 0.8), facecolors=f'C{label % 10}')
+
+    ax.set_xlabel("Time (seconds)")
+    ax.set_ylabel("Person")
+    ax.set_title("Person Appearances Timeline")
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+    
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+    print(f"    - 타임라인 이미지를 '{output_path}'에 저장했습니다.")
 
 def extract_face_data_from_video(video_path):
     """동영상에서 프레임을 샘플링하여 얼굴 인코딩, 타임스탬프, 위치를 추출합니다."""
@@ -206,6 +240,10 @@ def process_video(video_path):
     if not timelines:
         print("🤷‍♂️ 클립을 생성할 유의미한 등장 구간을 찾지 못했습니다.")
         return
+
+    # 타임라인 시각화
+    timeline_image_path = os.path.join(cfg.OUTPUT_CLIPS_DIR, "timeline.png")
+    visualize_timelines(timelines, timeline_image_path)
 
     # 클립 생성
     create_clips_from_timelines(video_path, timelines)
