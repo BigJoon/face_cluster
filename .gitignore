@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# Input/Output
+/input_video/
+/output_clips/
